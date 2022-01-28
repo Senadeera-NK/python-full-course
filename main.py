@@ -320,6 +320,198 @@ name_func = "www"
 hello(name_func, name_func,23)
 
 
+#--------return statement->functions send python values/objects back to the caller. these values/objects are known as the function's return value--------------#
+def multiply(number1, number2):
+  return number1 *number2
+
+
+#------keyword arguments-->>arguments preceded by an identifier when we pass them to a function the order of the argument doesn't matter, unlike positional arguments python knows the names of the arguments that our functions receives------------#
+def hello_positional_arguments(first,second,last):
+  print('Hello '+first+" "+second+" "+last)
+
+hello_positional_arguments(last='Nanduni',second='Kaveesha',first='Senadeera')
+
+def hello_keyword_arguments(first1,second2,third3):
+  print('Hello '+first1+' '+second2+' '+third3)
+
+hello_keyword_arguments(first1='Nanduni',third3='Senadeera',second2='Kaveesha')
+
+
+#---------nested function calls-->function calls inside of another function calls--innermost function calls are resolved first returned value is used as argument for the nested outer function----------------#
+
+# num = input('enter a whole positive number: ')
+# num = float(num)
+# num = abs(num)
+# num = round(num)
+# print(num)
+
+# print(round(abs(float(input('Enter a whole positive number: ')))))
+
+
+#variable scope->the region that a variable recognized, only avaialable in the region created (global/local can be created too)-------#
+
+name_scope = 'bro' #global scope
+def display_name_scope():
+  name_scope='code' #local scope(only inside of the function)
+  print(name_scope)
+
+display_name_scope()
+print(name_scope) #can't access,out of created region
+
+
+#--------args parameter -->>a parameter that will pack all arguments into a tuple, usefil so that a function can accept a varying amount of arguments-------#
+def add_args(*args): # '*'is important it does tha packing as the tuple 'args' name is changeable
+  sum = 0
+  stuff = list(args) #casting to a list
+  stuff[0]=0 #tuples can't be updated that's why it cast into a list
+  for i in stuff:
+    sum +=i
+  return sum
+
+print(add_args(1,2,3,4,5))
+
+
+#------kwargs(keyword arguments)-->>a parameter that will pack all arguments into a dictionary---------------#
+
+def hello_kwargs(**kwargs): #'**' is essential, it declares a dictionary
+  print("Hello ", end="")  #dictionary name['key name']
+  for key,value in kwargs.items():
+    print(value, end=" ")
+  print()
+
+hello_kwargs(title="Mr.",first='Nanduni',last='Kaveesha',middle='Senadeera')
+
+
+#----------str.format() method-->>method available to string(optional), gives user more about the output------------#
+animal = 'cow'
+item = 'moon'
+# print('The '+animal+' jumped over the '+item)
+print('The {} jumped over the {}'.format(animal,item)) #positional arguments
+print('The {1} jumped over the {0}'.format(item,animal)) #positional arguments
+print('The {animal1} jumped over the {item1}'.format(animal1='cow',item1='moon')) #keyword arguments
+
+text_format = 'The {} jumped over the {}'
+print(text_format.format(animal,item))
+
+name_format = 'Nanduni'
+print('Hello my name is {}'.format(name_format))
+print('Hello my name is {:10}. nice to meet you'.format(name_format)) #':10'-->> no of spaces after the name displayed
+print('Hello my name is {:<10}. nice to meet you'.format(name_format))#to add spaces after name
+print('Hello my name is {:>10}. nice to meet you'.format(name_format))#to add spaces before name
+
+number_format = 1.2344
+print('the number pi is {:.2f}'.format(number_format)) #2f-->>to display only first two digits after the decimal(f -> floats)
+
+number_format2 = 1000
+print('the number is {:,}'.format(number_format2))#adding ',' after the first digit
+print('the number in binary is {:b}'.format(number_format2))#to get the binary representation of the number
+print('the number in octal is {:o}'.format(number_format2))#to get the octal representation of the number
+print('the number in hexadicimal is {:x}'.format(number_format2))#to get the hexadecimal representation of the number
+print('the number in scientific notation is {:e}'.format(number_format2))#to get the scientific notation representation of the number
+
+
+#-----------methods using 'random'-------------#
+import random
+
+x_random = random.randint(1,6) #to get a number between 1 and 6
+print(x_random)
+
+y_random = random.random() #to get a floating number
+print(y_random)
+
+myList_random = ['rock','paper','scissor']
+z_random = random.choice(myList_random) #to get a random item from a list
+print(z_random)
+
+cards_random = [1,2,3,4,5,6,7,8,9,'J','K','Q']
+random.shuffle(cards_random) #to shuffle a list or other collection
+print(cards_random)
+
+
+#------------------exception handling--------------------#
+#---exception-->>is an event detected during execution which  interrupt the flow of the program-----------#
+# try:
+#     numerator_exception = int(input('enter a number to divide: '))
+#     denominator_exception = int(input('enter a number to divide by: '))
+#     result_exception = numerator_exception/denominator_exception
+# #first catch specific exceptions, then catch the normal exception
+# except ZeroDivisionError as e: #'as e'-->>to print the exception that displays by the python(optional)
+#   print(e)
+#   print("you can't divide by zero, idiot")
+# except ValueError as e:
+#   print(e)
+#   print("Enter only numbers please asshole")
+# except Exception as e:
+#   print(e)
+#   print('something went wrong')
+# else: #optional
+#   print(result_exception)
+# finally:#with or without exception always, finally block gets executed ex:to close files which are opened
+#   print('this will always execute !!!')
+
+
+#-------------basic file detections--------------------#
+import os
+
+path ="D:\\Program Files\\python full course\\python-full-course\\text.txt" #if you have backslash '\' in file path, use '\\' double backslash(that's the escape sequence for a backslash string)
+if os.path.exists(path): #---checking file's existence---#
+  print('that location exist !!!')
+  if os.path.isfile(path): #---checking if it's a file--#
+    print('this is a file')
+  elif os.path.isdir(path): #---checking if it's a folder--#
+    print('this is a directory')
+else:
+  print('that location doesnt exist !!!')
+
+
+#------------------reading a file----------------------#
+try:
+    with open('text2.txt') as file: #this closes file automatically
+
+    #doesnt need if files on project folder or else input the path ex'D:\\Program Files\\python full course\\python-full-course\\text.txt'
+      print(file.read())
+except FileNotFoundError:
+  print('file was not found') 
+print(file.closed) #to check if file is closed
+
+
+#---------------writing files-------------------------#
+text_write = 'yoooooooooooo\nThis is some text\nHave a good one:\n' #'\n'-->>causing a new line
+with open('text-writing.txt','w') as file_writing:
+   file_writing.write(text_write)
+
+#----to append some text----#
+text_write2 = 'have a nice day! see ya(appending text)'
+with open('text-writing.txt','a') as file_writing:
+  file_writing.write(text_write2)
+
+
+#-------------copying files---------------------------#
+import shutil
+#3 ways
+#1.copyfile() = copies contents of a file
+#2.copy() = copyfile() + permission mode + detimation can be a directory
+#3.copy2() = copy() + copies metadata (file's creation and modification times)
+
+shutil.copyfile('text2.txt','copy.txt') #(src, destination) #if its not on project directory, name the location--------'copy.text' creating automatically
+
+#copy() and copy2() are same
+
+
+#--------------move files/folders-------------------------------#
+import os
+source_move = "move.txt" #if some place else give the path
+destination_move = "D:\\Program Files\\moved.txt" #can rename the file's name
+
+try:
+  if os.path.exists(destination_move):
+    print('theres already a file there')
+  else:
+    os.replace(source_move,destination_move) #moving the file
+    print(source_move+ ' was moved')
+except FileNotFoundError:
+  print(source_move+' was not found')
+
 
 
 
