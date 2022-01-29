@@ -451,72 +451,256 @@ print(cards_random)
 
 
 #-------------basic file detections--------------------#
+# import os
+
+# path ="D:\\Program Files\\python full course\\python-full-course\\text.txt" #if you have backslash '\' in file path, use '\\' double backslash(that's the escape sequence for a backslash string)
+# if os.path.exists(path): #---checking file's existence---#
+#   print('that location exist !!!')
+#   if os.path.isfile(path): #---checking if it's a file--#
+#     print('this is a file')
+#   elif os.path.isdir(path): #---checking if it's a folder--#
+#     print('this is a directory')
+# else:
+#   print('that location doesnt exist !!!')
+
+
+# #------------------reading a file----------------------#
+# try:
+#     with open('text2.txt') as file: #this closes file automatically
+
+#     #doesnt need if files on project folder or else input the path ex'D:\\Program Files\\python full course\\python-full-course\\text.txt'
+#       print(file.read())
+# except FileNotFoundError:
+#   print('file was not found') 
+# print(file.closed) #to check if file is closed
+
+
+# #---------------writing files-------------------------#
+# text_write = 'yoooooooooooo\nThis is some text\nHave a good one:\n' #'\n'-->>causing a new line
+# with open('text-writing.txt','w') as file_writing:
+#    file_writing.write(text_write)
+
+# #----to append some text----#
+# text_write2 = 'have a nice day! see ya(appending text)'
+# with open('text-writing.txt','a') as file_writing:
+#   file_writing.write(text_write2)
+
+
+# #-------------copying files---------------------------#
+# import shutil
+# #3 ways
+# #1.copyfile() = copies contents of a file
+# #2.copy() = copyfile() + permission mode + detimation can be a directory
+# #3.copy2() = copy() + copies metadata (file's creation and modification times)
+
+# shutil.copyfile('text2.txt','copy.txt') #(src, destination) #if its not on project directory, name the location--------'copy.text' creating automatically
+
+# #copy() and copy2() are same
+
+
+# #--------------move files/folders-------------------------------#
+# import os
+# source_move = "move.txt" #if some place else give the path
+# destination_move = "D:\\Program Files\\moved.txt" #can rename the file's name
+
+# try:
+#   if os.path.exists(destination_move):
+#     print('theres already a file there')
+#   else:
+#     os.replace(source_move,destination_move) #moving the file
+#     print(source_move+ ' was moved')
+# except FileNotFoundError:
+#   print(source_move+' was not found')
+
+
+#-------------delete files----------------------#
 import os
 
-path ="D:\\Program Files\\python full course\\python-full-course\\text.txt" #if you have backslash '\' in file path, use '\\' double backslash(that's the escape sequence for a backslash string)
-if os.path.exists(path): #---checking file's existence---#
-  print('that location exist !!!')
-  if os.path.isfile(path): #---checking if it's a file--#
-    print('this is a file')
-  elif os.path.isdir(path): #---checking if it's a folder--#
-    print('this is a directory')
+path='delete file.txt'
+
+#exception handling is exceptional
+try:
+  os.remove(path) #insert the file path if it's not in project repository
+except FileNotFoundError:
+  print('That file was not found')
+
+#--os.remove() function does not remove empty folders
+path_delete = 'empty delete folder'
+try:
+  os.remove(path_delete)
+
+  #to remove empty folders
+  os.rmdir(path_delete)
+except PermissionError:
+  print('you do not have permission to delete that')
 else:
-  print('that location doesnt exist !!!')
+  print(path_delete+' folder is deleted')
 
+#--os.rmdir() function does not delete not empty folders
+path_folder_delete = 'not empty folder'
 
-#------------------reading a file----------------------#
 try:
-    with open('text2.txt') as file: #this closes file automatically
+  os.rmdir(path_folder_delete)
+except OSError:
+  print('you cannot delete that using that function')
 
-    #doesnt need if files on project folder or else input the path ex'D:\\Program Files\\python full course\\python-full-course\\text.txt'
-      print(file.read())
-except FileNotFoundError:
-  print('file was not found') 
-print(file.closed) #to check if file is closed
-
-
-#---------------writing files-------------------------#
-text_write = 'yoooooooooooo\nThis is some text\nHave a good one:\n' #'\n'-->>causing a new line
-with open('text-writing.txt','w') as file_writing:
-   file_writing.write(text_write)
-
-#----to append some text----#
-text_write2 = 'have a nice day! see ya(appending text)'
-with open('text-writing.txt','a') as file_writing:
-  file_writing.write(text_write2)
-
-
-#-------------copying files---------------------------#
+#shutil.rmtree() ->to delete not empty folders
 import shutil
-#3 ways
-#1.copyfile() = copies contents of a file
-#2.copy() = copyfile() + permission mode + detimation can be a directory
-#3.copy2() = copy() + copies metadata (file's creation and modification times)
-
-shutil.copyfile('text2.txt','copy.txt') #(src, destination) #if its not on project directory, name the location--------'copy.text' creating automatically
-
-#copy() and copy2() are same
-
-
-#--------------move files/folders-------------------------------#
-import os
-source_move = "move.txt" #if some place else give the path
-destination_move = "D:\\Program Files\\moved.txt" #can rename the file's name
-
 try:
-  if os.path.exists(destination_move):
-    print('theres already a file there')
-  else:
-    os.replace(source_move,destination_move) #moving the file
-    print(source_move+ ' was moved')
-except FileNotFoundError:
-  print(source_move+' was not found')
+  shutil.rmtree(path_folder_delete) #this will delete the folder including all the includes
+except OSError:
+  print('you cannot delete that using that function')
+else:
+  print('folder is deleted')
 
 
+  #----------modules-->>a file containing python code, may contain functions, classes, etc. used with modular programming, which is to seperate a program into parts.--#
+import messaages_modules as msg #module file name
+
+#-----another way to import modules----#
+# from messaages_modules import hello_modules, bye_modules
+# from messaages_modules import * #to import all function
+
+msg.hello_modules()#using a function from that imported module
+msg.bye_modules()
+
+#to populate all the modules that available for the file
+# help('modules')
 
 
+#----------basic game--->>rock, paper, scissor--------#
+# import random
+
+# while(True):
+#   choice_rps = ['rock','paper','scissor']
+#   computer_rps_choice = random.choice(choice_rps)
+
+#   player_rps_choice = None
+
+#   while player_rps_choice not in choice_rps:
+#     player_rps_choice = input('rock, paper or scissor?: ').lower()
+
+#   if player_rps_choice == computer_rps_choice:
+#       print('computer : ',computer_rps_choice)
+#       print('player : ',player_rps_choice)
+#       print('Tie !!!')
+#   elif player_rps_choice == 'rock':
+#     if computer_rps_choice == 'paper':
+#       print('computer : ',computer_rps_choice)
+#       print('player : ',player_rps_choice)
+#       print('you lose !!!')
+#     if computer_rps_choice == 'scissor':
+#       print('computer : ',computer_rps_choice)
+#       print('player : ',player_rps_choice)
+#       print('you win !!!')
+#   elif player_rps_choice == 'scissor':
+#     if computer_rps_choice == 'paper':
+#       print('computer : ',computer_rps_choice)
+#       print('player : ',player_rps_choice)
+#       print('you win !!!')
+#     if computer_rps_choice == 'rock':
+#       print('computer : ',computer_rps_choice)
+#       print('player : ',player_rps_choice)
+#       print('you lose !!!')
+#   elif player_rps_choice == 'paper':
+#     if computer_rps_choice == 'rock':
+#       print('computer : ',computer_rps_choice)
+#       print('player : ',player_rps_choice)
+#       print('you win !!!')
+#     if computer_rps_choice == 'scissor':
+#       print('computer : ',computer_rps_choice)
+#       print('player : ',player_rps_choice)
+#       print('you lose !!!')
+  
+#   play_again = input('play again(yes/no): ')
+#   if play_again != 'yes':
+#     break
+# print('Bye !')
 
 
+#------------check basic quiz game.py------------------#
+#-----------check poop.py for (python object oriented programming)-------------#
+from poop import Car
+
+#in python we do not have to pass 'self' that automatically has done for us
+car_1 = Car('Chevy','Corvette',2021,'Blue')
+print(car_1.make)
+print(car_1.model)
+print(car_1.year)
+print(car_1.color)
+car_1.drive()
+car_1.stop()
+
+car_2 = Car('ford','mmustang',2022,'red')
+car_2.drive()
+car_2.stop()
+#class-->> can function as a blue print to create objects, we can assing attributes, methods, innit method's arguments can pass in when creating an object
 
 
+#------------basics of class variables-------------------#
+#-----difference between class variables and instance variables----#
+car_1_class = Car('Chevy','Corvette',2021,'Blue')
+car_2_class= Car('ford','mmustang',2022,'red')
 
+car_1_class.wheels = 2 #accessing class variables using it's object
+
+Car.wheels =2 #accessing class variables using class
+
+print(car_1_class.wheels)
+print(car_2_class.wheels)
+
+
+#-------------------inheritence------------------------#
+#---means classes can have childrens and it  gives all(attributes,methods) parents have to children---#
+#----each child classes have thier own things(attributes,methods) too---#
+#----------check animals.py for more-----------#
+
+
+#-----------multilevel inheritence =>> when a derived(child) class inherits another derived(child) class------#
+
+#----like a family tree-->>inhert from grand parents to parents to childrens----#
+class Organism:
+  alive = True
+
+class Animal(Organism):
+  def eat(self):
+    print('this animal is eating')
+
+class Dog(Animal):
+  def bark(self):
+    print('this dog is barking')
+
+dog = Dog()
+print(dog.alive)
+dog.eat()
+dog.bark()
+
+
+#------------------mutiple inheritence-->>when a child class is derived from more than one parent class------#
+
+#-----as an example some animals can be a prey or predator differs from situation to situation------#
+class Prey:
+  def flee(self):
+    print('this animal flees')
+
+class Predator:
+  def hunt(self):
+    print('this animal is hunting')
+
+class Rabbit(Prey):
+  pass
+class Hawk(Predator):
+  pass
+class Fish(Prey,Predator):
+  pass
+
+rabbit = Rabbit()
+hawk = Hawk()
+fish = Fish()
+
+rabbit.flee()
+hawk.hunt()
+
+#fishes can be flee and hunt
+fish.flee()
+fish.hunt()
