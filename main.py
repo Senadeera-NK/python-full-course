@@ -78,6 +78,8 @@ print("y is "+y)
 
 
 #----------useful functions related to numbers------------#
+from ast import Lambda
+from audioop import reverse
 import math
 from os import utime
 pi = 3.14
@@ -704,3 +706,351 @@ hawk.hunt()
 #fishes can be flee and hunt
 fish.flee()
 fish.hunt()
+
+
+#----------method oerriding-->>child clss hs specific ability to get a specific implimentation of already defined method in parent's class-------------------------#
+class Animal_oerride:
+  def eat(self):
+    print('This animal is eating')
+
+class Rabbit_override(Animal):
+  def eat(self):
+    print('This rabbit is eating a carrot')
+
+rabbit_override = Rabbit_override()
+rabbit_override.eat() #this will implement the most close method
+
+
+#--------method chaining-->>calling multiple methods sequentially each call performs an action on the same object and returns self---------------#
+class Car_chaining:
+  def turn_on_chaining(self):
+    print('you start the engine')
+    return self
+  
+  def drive_chaining(self):
+    print('you drive the car')
+    return self
+
+  def brake_chaining(self):
+    print('you stepped on the brake')
+    return self
+
+  def turn_off_chaining(self):
+    print('you turned off the engine')
+    return self
+
+car_chaining = Car_chaining()
+
+car_chaining.turn_on_chaining()
+car_chaining.drive_chaining()
+
+#----method chaining using----#
+#****to use method chaining we have to 'return self' after each method--->>>because it'll return self then that object will call the next one
+car_chaining.turn_on_chaining().drive_chaining()
+
+#--------when having multiple methods callings in method chaining-----#
+car_chaining.turn_on_chaining()\
+            .drive_chaining()\
+            .brake_chaining()\
+            .turn_off_chaining()
+
+
+#-----------super()-->>used to give access to the methods of a parent class. returns a temperory object of a parent class when used-------#
+class Rectangle_super:
+  def __init__(self,length,width):
+    self.length = length
+    self.width = width
+
+class Square_super(Rectangle_super):
+
+  def __init__(self,length,width):
+    super().__init__(length,width)
+
+  def area(self):
+    return self.length * self.width
+
+
+class Cube_super(Rectangle_super):
+
+  def __init__(self, length, width, height):
+    super().__init__(length,width)
+    self.height = height
+  
+  def volume(self):
+    return self.length * self.width * self.height
+
+square_super = Square_super(3,3)
+cube_super = Cube_super(2,3,4)
+
+print(square_super.area())
+print(cube_super.volume())
+
+
+#------------------abstract classes-->>prevent the user from creating an object of the class, comples a user to override abtract methods in a child class---#
+#abstract class-->> a class which contain one or more abstrsct methods---#
+#abstract methods-->> a method that has a declaration but does not have an implementation---#
+
+#abc-->>abstract based class
+from abc import ABC, abstractmethod 
+#to make it abstract-->> import this first
+
+class Vehicle_abstract(ABC):
+
+  @abstractmethod #to make it abstract metod
+  def go(self):
+    pass
+
+  @abstractmethod
+  def stop(self):
+    pass
+  #child classes always should implement pabstract class's all methods
+
+class Car_abstract(Vehicle_abstract):
+  def go(self): #overriding the method
+    print('you drive the car')
+
+  def stop(self):
+    print('this car is stopped')
+
+class MotorCycle_abstract(Vehicle_abstract):
+  def go(self):
+    print('you ride the motorcycle')
+
+  def stop(self):
+    print('this motorcycle is stopped')
+
+# vehicle_abstract = Vehicle_abstract() #cant do this cant make childs from abstract classes
+car_abstract = Car_abstract()
+motorCycle_abstract = MotorCycle_abstract()
+
+car_abstract.go()
+car_abstract.stop()
+
+motorCycle_abstract.go()
+motorCycle_abstract.stop()
+
+
+#-------------------pass objects as arguments--->>
+
+class Car_passObjects:
+  color = None
+
+class MotorCycle_passObjects:
+  color = None
+
+def change_color_objects(vehicle,color):
+  vehicle.color = color
+  
+car_1_object = Car_passObjects()
+car_2_object = Car_passObjects()
+car_3_object = Car_passObjects()
+
+change_color_objects(car_1_object,"blue")
+change_color_objects(car_2_object,"red")
+change_color_objects(car_3_object,"yellow")
+
+print(car_1_object.color)
+print(car_2_object.color)
+print(car_3_object.color)
+
+bike_1_object = MotorCycle_passObjects()
+change_color_objects(bike_1_object,'black')
+print(bike_1_object.color)
+
+
+#----------duck typing--->>concept where the class of an object is less important than the methods/attributes. class type is not checked if minimum methods/attributes are present, 'if it walks like a duck and it quacks like a duck, then it must be a duck'
+class Duck:
+  def walk(self):
+    print('this duck is walking')
+
+  def talk(self):
+    print('this duck is qwuacking')
+
+class Chicken:
+  def walk(self):
+    print('This chicken is walking')
+    
+  def talk(self):
+    print('This chicken is clucking')
+
+class Person:
+
+  def catch(self,duck):
+    duck.walk()
+    duck.talk()
+    print('you caught the critter!')
+
+duck = Duck()
+chicken = Chicken()
+person = Person()
+
+#since chicken has methods walk and talk it works here too
+person.catch(chicken)
+
+
+#----------walrus operator(:=)--->>1.assingment expression aka walrus operator, 2.assgins values to varaibles as part of a larger expression----#
+
+# happy = True
+# print(happy)
+#to do that in oneline...........
+print(happy := True)
+
+# foods = list()
+# while True:
+#   food = input('what food do u like?: ')
+#   if food == 'quit':
+#     break
+#   foods.append(food)
+#this using walrus operator..............
+
+# foods = list()
+# while food := input('what food do you like?: ') != 'quit':
+#   foods.append(food)
+
+
+#-------how to assign function to a variable---------#
+# def hello_function():
+#   print('hello')
+
+# print(hello_function) #this will print the memory address of the function
+# hi_function = hello_function  #after this we can use 'hi_function' variable as the 'hello' function
+# print(hi_function())
+# print(hello_function())
+
+say = print #assiging print() function to 'say' variable
+say('whoa : I cant believe this works')
+
+
+#higher order functions--->>>these functions,1. accepts function as an argument or 2. returns a function
+
+#---1.higher order function->accepts function as an argument--
+def loud(text):
+  return text.upper()
+
+def quiet(text):
+  return text.lower()
+
+def hello(func):
+  text = func('hellow')
+  print(text)
+
+hello(loud) #passing loud function as loud variable using function using as a variable
+hello(quiet)
+
+#--higher order function->2.returns a function--#
+def divisor(x):
+  def dividend(y):
+    return y/x
+  return dividend   #this return the function
+
+divide = divisor(2)
+print(divide(10))
+
+
+#-------lambda function-->>function written in oneline using lamda keyword accepts any number of argument, but only has one expression.(think of it as a shortcut),  useful if needed for a short period of time(can only use once), throw-away.
+
+#this is how it works
+#lamda parameter:expression
+
+# def double(z):
+#   return z *2
+# print(double(2))
+#to make it lamda function...........
+
+double = lambda x:x * 2
+print(double(5))
+
+multiply = lambda x,y:x*y
+print(multiply(1,4))
+
+add = lambda x,y,z:x+y+z
+print(add(3,5,6))
+
+fullname = lambda first_name,last_name:first_name+" "+last_name
+print(fullname('nanduni','kaveesha'))
+
+#--if else with lambda
+age_check = lambda age:True if age >= 18 else False
+print(age_check(12))
+
+
+#-----------sort() method = used with lists-----------#
+students = ['squidward','spongebob','patrick','sandy','krabs'] 
+
+#only lists can use sort()
+students.sort() #sorting alphabetical order
+for i in students:
+  print(i)
+
+students.sort(reverse=True) #to print it in reverse order
+for i in students:
+  print(i)
+
+#----sort() function = used with iterables-----#
+students_tuple = ('squidward','spongebob','patrick','sandy','krabs')
+sorted_students = sorted(students_tuple) #ths will return a lists but accepts iterables
+for i in sorted_students:
+  print(i)
+
+sorted_students_reverse = sorted(students_tuple,reverse=True) #ths will return a lists but accepts iterables
+for i in sorted_students_reverse:
+  print(i)
+
+#list of tuples
+student_listtuple = [('squidward','F',60),
+                    ('sandy','A',33),
+                    ('patrick','D',36),
+                    ('spongebob','B',20),
+                    ('Krabs','C',78)]
+
+student_listtuple.sort()#to sort by first column
+for i in student_listtuple:
+  print(i)
+ 
+grade = lambda grades:grades[1]
+student_listtuple.sort(key=grade)#to sort by first column
+for i in student_listtuple:
+  print(i)
+
+#tuple of tuples
+student_tupletuple = (('squidward','F',60),
+                    ('sandy','A',33),
+                    ('patrick','D',36),
+                    ('spongebob','B',20),
+                    ('Krabs','C',78))
+
+age = lambda ages:ages[2]
+sorted_student_tupletuple = sorted(student_tupletuple,key=age)
+for i in sorted_student_tupletuple:
+  print(i)
+
+
+#-----------------map()--->>applies a function to each in an iterable(list, tuple, etc.)
+
+#map(function,iterable)
+#list of tuples
+store = [('shirt',20.00),
+        ('pants',25.00),
+        ('jacket',50.00),
+        ('socks',10.00)]
+to_euros = lambda data : (data[0],data[1]*0.82)
+
+store_euros = list(map(to_euros,store))
+for i in store_euros:
+  print(i)
+
+
+#--------------filter()-->>creates a collection of elements from an iterable for which a function returns true.
+
+#filter(function,iterable)
+friends = [('rachel',19),
+          ('monica',18),
+          ('phoebe',17),
+          ('joey',16),
+          ('chandler',21),
+          ('ross',20)]
+
+age_filter = lambda data:data[1] >= 18
+drinking_boddies = list(filter(age_filter,friends))
+for i in drinking_boddies:
+  print(i)
