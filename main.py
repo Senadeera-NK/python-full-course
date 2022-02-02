@@ -80,6 +80,7 @@ print("y is "+y)
 #----------useful functions related to numbers------------#
 from ast import Lambda
 from audioop import reverse
+from calendar import EPOCH
 import math
 from os import utime
 pi = 3.14
@@ -1054,3 +1055,448 @@ age_filter = lambda data:data[1] >= 18
 drinking_boddies = list(filter(age_filter,friends))
 for i in drinking_boddies:
   print(i)
+
+
+  #-----------reduce()-->>apply a function to an iterable and reduce it to a single cumulative value. performs function on first two elements and repeats process until 1 value remains.------#
+  #reduce(function,iterable)
+  import functools
+  # letters_reduce= ['h','e','l','l','o']
+  # word_reduce = functools.reduce(lambda x,y,:x+y,letters_reduce)
+  # print(word_reduce)
+  factorial = [5,4,3,2,1]
+  result_factorial = functools.reduce(lambda x,y,:x*y,factorial)
+  print(result_factorial)
+
+
+#---list comprehension-->>a way to create a new list with less syntax, can mimic certain lambda functions, easier to read, ---list =[expression for item in iterable]-----#
+  squares_comprehension = []
+  for i in range(1,11):
+    squares_comprehension.append(i * i)
+
+#using list comprehension..........
+squares_list_comprehension = [i * i for i in range(1,11)]
+print(squares_list_comprehension)
+
+students_marks = [100,89,67,56,54,79]
+
+passed_students = list(filter(lambda x:x>= 60, students_marks))
+print(passed_students)
+
+#using list comprehension.........
+#list =[expression for item in iterable if conditions]
+passed_students_comprehension = [i for i in students_marks if i >= 60]
+print(passed_students_comprehension)
+
+#using (if/else) list comprehension...........
+#list = [expression (if/else) for item in iterable]
+passsed_students_list_comprehension = [i if i>= 60 else "Faild" for i in students_marks]
+print(passed_students_comprehension)
+
+
+#---dictionary comprehension-->>create dictionaries using an expression, can replace fo loops and certain lambda functions
+#dictionary = {key:'expression' for (key,value) in 'iterable'};
+cities_in_F = {'New York':32,'Boston':75,'Los Angeles':100,'Chicago':50}
+cities_in_C={key: round((value-32)*(5/9)) for (key,value) in cities_in_F.items()}
+print(cities_in_C)
+
+#dictionary = {key:'expression' for (key,value) in 'iterable' if conditional};
+cities_in_weather = {'New York':'snowing','Boston':'sunny','Los Angeles':'sunny','Chicago':'cloudy'}
+#since doesnt have a function. 'function'-->>'key'
+sunny_weather = {key:value for (key,value) in cities_in_weather.items() if value == 'sunny'}
+print(sunny_weather)
+
+#dictionary = {key: (if/else) for (key,value) in iterable}
+desc_cities_in_weather = {key:("WARM" if value >= 40 else "COLD") for (key,value) in cities_in_C.items()}
+print(desc_cities_in_weather)
+
+#dictionary = {key:function(value) for (key,value) in iterable}
+def check_temp(value):
+  if value >= 70:
+    return "HOT"
+  elif 69 >= value >= 40:
+    return "WARM"
+  else:
+    return "'COLD"
+
+desc_cities_in_weather2= {key:check_temp(value) for (key,value) in cities_in_C.items()}
+print(desc_cities_in_weather2)
+
+
+#-----zip(*iterable)-->>aggregate elements from two ro more iterables(lists,tuples,sets,etc), create a zip object with paired elements stored in tuples for each element
+usernames = ['dude','nan','kaveesha']
+passwords = ('adadsa','344$fsdf','ervr@ef')
+
+users_zip =list(zip(usernames,passwords))#now we have list of tuples
+users_zip_dic = dict(zip(usernames,passwords))
+
+print(type(users_zip))
+for i in users_zip:
+  print(i)
+
+for key,value in users_zip_dic.items():
+  print(key+" : "+value)
+
+login_dates = ['1/1/2022','1/2/2022','1/3/2022']
+users_pass_login = zip(usernames,passwords,login_dates)
+for i in users_pass_login:
+  print(i)
+
+
+#-----------if __name__ == '__main__'-------------#
+#why?
+#1.module can be run as a standalone program
+#2.module can be imported and used by other modules
+
+#pythno intrepeter sets "special variables", one of which is __name__
+#then python will execute the code found within __main__
+import module_two
+print(module_two.__name__)
+
+print(__name__)
+
+if __name__ =='__main__':
+  print('running this module directly')
+else:
+  print('running other module indirectly')
+
+#thiss cant run as standalone
+def using__name__():
+  print('Hello')
+
+#using __name__to run it
+if __name__=='__main__':
+  using__name__()
+
+  #-------times and date------------------#
+import time
+
+#epoch-->>a date and time from hich a computer measures system time
+print(time.ctime(0)) #ctime()-->converting a time expressed in seconds since epoch to a readable string
+
+print(time.ctime(1000000)) #1 million seconds
+
+#time method-->returns current seconds since epoch
+print(time.time())
+
+print(time.ctime(time.time()))
+
+time_object = time.localtime() #this is creating an object
+print(time_object)
+#strftime()-->>converting it to readable object
+local_time_readable = time.strftime("%B %D %Y %H:%M:%S",time_object)
+print(local_time_readable)
+
+#universal time
+time_object_uni = time.gmtime()
+print(time_object_uni)
+
+#strptime()-->>string time and date and return an object
+time_String = "20 April 2022"
+time_object_str= time.strptime(time_String,"%d %B %Y")
+print(time_object_str)
+
+#tuple representantion of time
+time_tuple=(2022, 4, 20, 4, 20, 0, 0, 0, 0)
+time_string_asc = time.asctime(time_tuple)
+print(time_string_asc)
+
+#mktime()-->>take the time and convert it to seconds since epoch
+time_mk = time.mktime(time_tuple)
+print(time_mk)
+
+
+#---------------------threading-----------------------#
+#thread=a flow of an execution, like a seperate order of instructions, however each thread takes a turn to achieve concurrency GLI = (Global Interpreter Lock), allows only one thread to hold the control of the python interpreter
+
+#cpu bound = program/task spends mot of it's time waiting for internal events(CPU interpreter) use multiprocessing
+
+#io bound = program.task spends most of it's tme waiting for external events(user interpreter) use multithreading
+
+# import threading
+# import time
+# print(threading.active_count())
+# print(threading.enumerate())
+
+# #these all are 'io bound'
+# def eat_breakfast():
+#     time.sleep(3) #the time taking for that
+#     print('you eat breakfast')
+
+# def drink_coffee():
+#   time.sleep(4)
+#   print('you drank coffee')
+
+# def study():
+#   time.sleep(5)
+#   print('you finished studying')
+
+# # #these all works after one another
+# # eat_breakfast()
+# # drink_coffee()
+# # study()
+
+# #but we humans can do all those tasks at once-->>multithreading(only taking-->>5secs)
+# x = threading.Thread(target=eat_breakfast,args=()) #can add arguments too using-->>'args=()'
+# x.start()
+
+# y = threading.Thread(target=drink_coffee,args=()) #can add arguments too using-->>'args=()'
+# y.start()
+
+# z = threading.Thread(target=study,args=()) #can add arguments too using-->>'args=()'
+# z.start()
+
+# #to get how long it takes to complete the main thread
+# print(time.perf_counter())
+
+# #--------------thread synchronization-------------#
+# x.join() #main threade has to wait to thread x to finish
+# y.join()
+# z.join()
+
+
+#--------------daemon thread-->>a thread that runs in the background, not important for program to run, your program will not wait for daemon threads to complete before exiting, non-daemon threads cannot normally be killed, stay aline until task is complete-----------#
+
+# #ex: background tasks, garbage collection, wating for input, long runnign precess
+# import threading 
+# import time
+
+# def timer():
+#   print()
+#   count = 0
+#   while True:
+#     time.sleep(1)
+#     count += 1
+#     print('logged in for: ',count,' seconds')
+
+# # x= threading.Thread(target=timer)
+# # x.start()
+
+# #changing x to daemon.....
+# y=threading.Thread(target=timer, daemon=True)
+# y.start()
+# answer = input('Do you wish to exit?')
+
+
+#-----------------multiprocessing-->>running tasks in parallel on different cpu cores, bypasses GIL used for threading
+#multiprocessing = better for cpu bound tasks(heavy cpu usage)
+#multithreading = better for io bound tasks (waiting around)
+
+# from multiprocessing import Process, cpu_count
+# import time
+
+# def counter(num):
+#   count = 0
+#   while count < num:
+#     count += 1
+
+# def main():
+#   a = Process(target=counter,args=(2500000000,))
+#   b = Process(target=counter,args=(2500000000,))
+#   c = Process(target=counter,args=(2500000000,))
+#   d = Process(target=counter,args=(2500000000,))
+
+
+#   a.start()
+#   b.start()
+#   c.start()
+#   d.start()
+
+#   a.join()
+#   b.join()
+#   c.join()
+#   d.join()
+  
+#   print('finish in :',time.perf_counter()," seconds")
+# if __name__=='__main__':
+#    main()
+
+
+#-----------GUI(Graphical User Interface)------------#
+from tkinter import *
+#widgets-->>GUI elements : buttons, textboxes, labels, images
+#windows-->>serves as a container to hold or contain these widgets
+
+# first_window_creation = Tk()#instantiate an instance of a window
+# first_window_creation.geometry("420x420")
+# first_window_creation.title("First GUI python")
+
+# icon = PhotoImage(file='images/logo.png') #converting images to readable of python (only works for 'png')
+# first_window_creation.iconphoto(True, icon)
+
+# #to make changes to window can use 'config'
+# first_window_creation.config(background='#5cfcff')#hexvalues works
+
+# first_window_creation = mainloop() #place window on computer screen, listen for events
+
+
+#--------label in python-->>an area widget that holds and/or an image within a window----#
+# label_window = Tk()
+
+# #'()' acts like arguments,'text' is a keyword arguments, creating the label
+
+# #creating a photo for the label
+# photo = PhotoImage(file='images/logo.png')
+
+# first_label = Label(label_window,
+#                     text='Hello World !!!',
+#                     font=('Arial',40,'bold'),
+#                     fg='#00FF00', #**fg(foreground-->>font color)
+#                     bg='black', #bg(background color)
+#                     relief=RAISED, #border styling adding
+#                     bd=10,  #border width
+#                     padx=20,#padding between x(text and border)
+#                     pady=20,#padding between y(text and border)
+#                     image=photo, #adding the photo to the label(only photo will show in window)
+#                     compound='bottom'#to add photo and texts both to window(set in photo's location)
+#                     ) 
+
+# first_label.pack() #adding the created label to window
+
+# # #another way to add the label....
+# # first_label.place(x=100,y=100)
+
+# label_window.mainloop()
+
+
+#-----buttons--->>you click it, then it does stuff-----#
+# count = 0
+# def click_btn():
+#   print('you clicked the button')
+#   global count #to count how many times user clicked the button
+#   count += 1
+#   print(count)
+
+# btn_window = Tk()
+
+# photo=PhotoImage(file='images/logo.png')
+
+# first_button = Button(btn_window, #creating the button
+#                       text='click me',
+#                       command=click_btn, #callback to a function
+#                       font=('Comic-Sans',30),
+#                       fg='#00FF00',#foreground=font color
+#                       bg='black',
+#                       activeforeground='#00FF00',
+#                       activebackground='black', #set the active background color and background color to same to stop flashing the color
+#                       state=DISABLED, #to stop user clicking enable
+#                       image=photo, #will only show the image
+#                       compound='bottom'#to driect the images place
+#                       )
+
+# first_button.pack()
+# btn_window.mainloop()
+
+
+#--------------entry box-->>textbox that accepts a simgle line of user input--------------------#
+# def submit():
+#   username = entrybox.get() #will return a string of the entry box
+#   print('Hello '+ username)
+#   entrybox.config(state=DISABLED) #to disable the entry box after entering text
+
+# def delete():
+#   entrybox.delete(0,END) #(firstcharqcter, lastcharacter)
+
+# def backspace():
+#   entrybox.delete(len(entrybox.get())-1 ,END)
+
+# entrybox_window=Tk()
+
+# entrybox = Entry(entrybox_window,
+#                  font=('Arial',50),
+#                  fg = '#00FF00',
+#                  bg='black',
+#                  show="x" #for get passwords
+#                  )
+
+# entrybox.insert(0,'spongebob') #default text to entry box
+# entrybox.pack(side=LEFT)
+
+# submit_btn = Button(entrybox_window,text='submit',command=submit)
+# submit_btn.pack(side=RIGHT)
+
+# delete_btn = Button(entrybox_window,text='delete',command=delete)
+# delete_btn.pack(side=RIGHT)
+
+# backspace_btn = Button(entrybox_window,text='backspace',command=backspace)
+# backspace_btn.pack(side=RIGHT)
+
+# entrybox_window.mainloop()
+
+
+#-------------------checkbuttons------------------------#
+# from tkinter import *
+# def display():
+#   if(x.get()==1):
+#     print('you agree')
+#   else:
+#     print('you disagree :(')
+
+# checkbutton_window = Tk()
+
+# photo = PhotoImage(file='images/logo.png')
+
+# x = IntVar() #to store int (normally stored 1 or 0)
+# checkbtn_first = Checkbutton(checkbutton_window,
+#                              text='i agree to something',
+#                              variable=x,
+#                              onvalue=1, #what would be stored in variable if user ticked the checkbox
+#                              offvalue=0,  #what would be stored in variable if user didnt tick the checkbox
+#                              command=display,
+#                              font=('Arial',20),
+#                              fg='#00FF00',
+#                              bg='black',
+#                              activeforeground='#00FF00',
+#                              activebackground='black',
+#                              padx=25,
+#                              pady=10,
+#                              image=photo,
+#                              compound='left'
+#                              )
+# checkbtn_first.pack()                           
+# checkbutton_window.mainloop()
+
+
+#--------------------radiobuttons-----------------------#
+foodlist = ['pizza','hamburger','hotdog']
+
+def order():
+  if(x.get()==0):
+    print('you ordered pizza')
+  elif(x.get()==1):
+    print('you ordered hamburger')
+  elif(x.get()==2):
+    print('you ordered hotdog')
+  else:
+    print('huh !!!')
+
+
+
+radiobtn_window = Tk()
+
+Pizzaphoto = PhotoImage(file='images/logo.png')
+Hamburgerphoto = PhotoImage(file='images/logo.png')
+Hotdogphoto = PhotoImage(file='images/logo.png')
+
+foodImages=[Pizzaphoto,Hamburgerphoto,Hotdogphoto]
+
+x = IntVar()
+
+for index in range(len(foodlist)):
+  radiobtn_first = Radiobutton(radiobtn_window,          
+                              text=foodlist[index],
+                              variable=x, #group radiobuttons togather if they share..
+                              value=index, #set in value for radio buttons
+                              padx=25,
+                              font=('Impact',50),
+                              image=foodImages[index],
+                              compound='left',
+                              indicatoron=0, #eliminate circle indicators
+                              width=375, #sets width of radio buttons
+                              command=order
+                              )
+
+  radiobtn_first.pack(anchor=W) #to make in line up
+
+
+radiobtn_window.mainloop()
+
