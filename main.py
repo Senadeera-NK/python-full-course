@@ -1312,6 +1312,7 @@
 
 
 #-----------GUI(Graphical User Interface)------------#
+from cgitb import text
 from tkinter import *
 #widgets-->>GUI elements : buttons, textboxes, labels, images
 #windows-->>serves as a container to hold or contain these widgets
@@ -1720,28 +1721,206 @@ from tkinter import *
 
 
 #--------------saving a file using file dialog-----------#
+# from tkinter import *
+# from tkinter import filedialog
+
+# def saveFile():
+#   file = filedialog.asksaveasfile(initialdir='D:\\Program Files\\python full course\\openFile_fileDialog',
+#                                   defaultextension='.txt',
+#                                   filetypes=[
+#                                     ("Text file",".txt"),("HTML file",".html"),("All files","*.*"),]
+#                                   )
+
+#   if file is None:
+#     return
+#   # fileText = str(saveFile_text.get(1.0,END)) #has to convert into string to save
+#   fileText = input('enter some texts please...')
+#   file.write(fileText)
+#   file.close()
+
+# fileDialog_saveFile_window = Tk()
+
+# saveFile_btn = Button(fileDialog_saveFile_window,text='save',command=saveFile)
+# saveFile_btn.pack()
+# saveFile_text = Text(fileDialog_saveFile_window)
+# saveFile_text.pack()
+
+# fileDialog_saveFile_window.mainloop()
+
+
+#------------------menubar------------------------------#
+# from tkinter import *
+
+# def openFile():
+#   print('file has been opened')
+
+# def saveFile():
+#   print('file has been saved')
+
+# def cut():
+#   print('you have cut some text')
+
+# def copy():
+#   print('you have coppied some text')
+
+# def paste():
+#   print('you have pasted some text')
+
+# menubar_window = Tk()
+
+# photo = PhotoImage(file='images/logo.png')
+
+# first_menubar = Menu(menubar_window)
+# menubar_window.config(menu=first_menubar)
+
+# fileMenu = Menu(first_menubar,
+#                 tearoff=0, #to get rid of the '------' line, in begining
+#                 font=('MV Boli',15)
+#               )
+# first_menubar.add_cascade(label='File',menu=fileMenu) #this will have drop down menu effect
+# fileMenu.add_command(label='Open',command=openFile,image=photo,compound='left') #a clickable option
+# fileMenu.add_command(label='Save',command=saveFile) #a clickable option
+# fileMenu.add_separator() #to add a separate line between 'save' and 'exit'
+# fileMenu.add_command(label='Exit',command=quit) #quit-->>is a general command to exit
+
+              
+# editMenu = Menu(first_menubar,tearoff=0, font=('MV Boli',15))
+# first_menubar.add_cascade(label='Edit',menu=editMenu)
+# editMenu.add_command(label='Cut',command=cut) #a clickable option
+# editMenu.add_command(label='Copy',command=copy) #a clickable option
+# editMenu.add_command(label='Paste',command=paste) #a clickable option
+
+# menubar_window.mainloop()
+
+
+#---------------------frames-->> a rectangular container to group and hold widgets--------------------------#
+# from tkinter import *
+# frames_window = Tk()
+
+# first_frame = Frame(frames_window,bg='pink',bd=5,relief=SUNKEN)
+# first_frame.place(x=100,y=100) #replaced 'first_frame.pack()' with this
+
+
+# Button(first_frame,text='W',font=('Consolas',25),width=3).pack(side=TOP)
+# Button(first_frame,text='A',font=('Consolas',25),width=3).pack(side=LEFT)
+# Button(first_frame,text='S',font=('Consolas',25),width=3).pack(side=LEFT)
+# Button(first_frame,text='D',font=('Consolas',25),width=3).pack(side=LEFT)
+
+# frames_window.mainloop()
+
+
+#-------------------new windows--------------------------#
+# from tkinter import *
+
+# def create_window():
+#   # new_window= Toplevel() #Toplevel()-->> new window 'on top' of other windows, linked to a 'bottom' window, (if 'bottom' window closes 'top' window is automatically close)
+#   new_window=Tk() #this creats a new independent window
+#   newWindow_window.destroy() #this will close out old window
+# newWindow_window = Tk()
+
+# Button(newWindow_window,text='create new window',command=create_window).pack()
+
+# newWindow_window.mainloop()
+
+
+#-----------------new window tabs-----------------------#
+# from tkinter import *
+# from tkinter import ttk
+
+# tabs_window = Tk()
+
+# notebook = ttk.Notebook(tabs_window) #widget that manages a collection of windows/displays
+# tab1 = Frame(notebook) #new frame for tab1
+# tab2 = Frame(notebook) #new frame for tab2
+
+# notebook.add(tab1,text='Tab 1')
+# notebook.add(tab2,text='Tab 2')
+# notebook.pack(expand=True, #expand -->> this will expand to fill any spaces otherwise used
+#               fill='both' #will fill space on a and y axis
+# )
+# Label(tab1,text='Hello this is tab number 1',width=50,height=25).pack()
+# Label(tab2,text='goodbye this is tab number 1',width=50,height=25).pack()
+
+# tabs_window.mainloop()
+
+
+ #-------------grid geometry manager--------------------#
+# from tkinter import *
+# #grid()--->>geometry manager that organizes widgets in a table like structure in a parent
+
+# def grid_submit():
+#   print()
+
+# grid_window = Tk()
+
+# titleLable = Label(text='Enter you Info',font=('Arial',25)).grid(row=0,column=0,columnspan=2)
+
+# firstNameLabel = Label(grid_window,text='first name: ',width=20,bg='red').grid(row=1,column=0)
+# firstName_entry = Entry(grid_window).grid(row=1,column=1)
+
+# lastNameLabel = Label(grid_window,text='last name: ',bg='green').grid(row=2,column=0)
+# lastName_entry = Entry(grid_window).grid(row=2,column=1)
+
+# EmailLabel = Label(grid_window,text='Email: ',bg='blue',width=30).grid(row=3,column=0)
+# Email_entry = Entry(grid_window).grid(row=3,column=1)
+
+# grid_submit_btn = Button(grid_window,text='submit',command=grid_submit).grid(row=4,column=0,columnspan=2)
+
+# grid_window.mainloop()
+
+
+#--------------progress bar---------------------------#
+# from tkinter import *
+# from tkinter.ttk import *
+# import time
+
+# def startDownload():
+#   GB = 50
+#   download = 0
+#   speed =2
+#   while(download < GB):
+#     time.sleep(0.05) #wait 1sec to complete
+#     first_bar['value'] += ((speed/GB)*100) #every time button clicks it fills by 10 percent
+#     download += speed
+#     percent.set(str(int((download/GB)*100))+"%")
+#     progressbar_window.update_idletasks() #to automatically update the window
+#     text.set(str(download)+"/"+str(GB)+" GB completed.")
+
+# progressbar_window = Tk()
+
+# percent = StringVar() #to update 'percent' with some string texts
+# text = StringVar()
+
+# first_bar = Progressbar(progressbar_window,orient=HORIZONTAL,length=300)
+# first_bar.pack(pady=10)
+
+# percentLabel = Label(progressbar_window,textvariable=percent).pack()
+
+# taskLabel = Label(progressbar_window,textvariable=text).pack()
+
+# download_btn = Button(progressbar_window,text='download',command=startDownload).pack()
+
+# progressbar_window.mainloop()
+
+
+#---------------------canvas-->>widget that is used to draw graphs, plots, images in a window----------------#
 from tkinter import *
-from tkinter import filedialog
+canvas_window = Tk()
 
-def saveFile():
-  file = filedialog.asksaveasfile(initialdir='D:\\Program Files\\python full course\\openFile_fileDialog',
-                                  defaultextension='.txt',
-                                  filetypes=[
-                                    ("Text file",".txt"),("HTML file",".html"),("All files","*.*"),]
-                                  )
+first_canvas = Canvas(canvas_window,height=500,width=500)
+# first_canvas.create_line(0,0,500,500,fill='blue',width=5) #(start x, start y, end x, end y)
+# first_canvas.create_line(0,500,500,0,fill='red',width=5) 
+# first_canvas.create_rectangle(50,50,250,250,fill='purple')
 
-  if file is None:
-    return
-  # fileText = str(saveFile_text.get(1.0,END)) #has to convert into string to save
-  fileText = input('enter some texts please...')
-  file.write(fileText)
-  file.close()
+# points = [250,0,500,500,0,500]
+# first_canvas.create_polygon(points,fill='yellow',outline='black',width=5)
 
-fileDialog_saveFile_window = Tk()
+# first_canvas.create_arc(0,0,500,500,style=PIESLICE,start=270,extent=180) #arc is curved line between two points
 
-saveFile_btn = Button(fileDialog_saveFile_window,text='save',command=saveFile)
-saveFile_btn.pack()
-saveFile_text = Text(fileDialog_saveFile_window)
-saveFile_text.pack()
+#--simple pokebole--#
+first_canvas.create_arc(0,0,500,500,fill='red',extent=180,width=10)
+first_canvas.create_arc(0,0,500,500,fill='white',start=180,extent=180,width=10)
+first_canvas.create_oval(190,190,310,310,fill='white',width=10)
 
-fileDialog_saveFile_window.mainloop()
+first_canvas.pack()
+canvas_window.mainloop()
