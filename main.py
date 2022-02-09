@@ -1313,7 +1313,9 @@
 
 #-----------GUI(Graphical User Interface)------------#
 from cgitb import text
+from email.mime import image
 from tkinter import *
+import tkinter
 #widgets-->>GUI elements : buttons, textboxes, labels, images
 #windows-->>serves as a container to hold or contain these widgets
 
@@ -1720,7 +1722,7 @@ from tkinter import *
 # fileDialog_openFile_window.mainloop()
 
 
-#--------------saving a file using file dialog-----------#
+#--------------saving a file using file dialog----------#
 # from tkinter import *
 # from tkinter import filedialog
 
@@ -1904,23 +1906,221 @@ from tkinter import *
 
 
 #---------------------canvas-->>widget that is used to draw graphs, plots, images in a window----------------#
+# from tkinter import *
+# canvas_window = Tk()
+
+# first_canvas = Canvas(canvas_window,height=500,width=500)
+# # first_canvas.create_line(0,0,500,500,fill='blue',width=5) #(start x, start y, end x, end y)
+# # first_canvas.create_line(0,500,500,0,fill='red',width=5) 
+# # first_canvas.create_rectangle(50,50,250,250,fill='purple')
+
+# # points = [250,0,500,500,0,500]
+# # first_canvas.create_polygon(points,fill='yellow',outline='black',width=5)
+
+# # first_canvas.create_arc(0,0,500,500,style=PIESLICE,start=270,extent=180) #arc is curved line between two points
+
+# #--simple pokebole--#
+# first_canvas.create_arc(0,0,500,500,fill='red',extent=180,width=10)
+# first_canvas.create_arc(0,0,500,500,fill='white',start=180,extent=180,width=10)
+# first_canvas.create_oval(190,190,310,310,fill='white',width=10)
+
+# first_canvas.pack()
+# canvas_window.mainloop()
+
+
+#---------------key events----------------------------#
+# from tkinter import *
+
+# def doSomething(event):
+#   # print('you pressed: '+ event.keysym)
+#   keyEvents_label.config(text = event.keysym)
+
+# keyEvents_window = Tk()
+
+# # keyEvents_window.bind('<q>',doSomething) #(event(name of the button),functionName)
+# #"<Return>"-->>enter key
+# #"<q>"-->> 'q' key
+
+# keyEvents_window.bind('<Key>',doSomething)
+
+# keyEvents_label = Label(keyEvents_window,font = ("Helvetica",100))
+# keyEvents_label.pack()
+
+# keyEvents_window.mainloop()
+
+
+
+#--------------mouse events-----------------------------#
+# from tkinter import *
+
+# def doSomething(event): #argument is "<Button-1>"
+#   print('mouse cordinaties(where we clicked using mouse on the window: )' + str(event.x)+","+str(event.y))
+
+# mouseEvents_window = Tk()
+
+# #"<Button-1>"-->> left mouse button
+# #"<Button-2>"-->>  mouse wheel(click)
+# #"<Button-3>"-->>  right mouse button
+# #"<ButtonRelease>"-->>  realeasing a mouse button
+# #"<Enter>"-->>  just hover on the window by mouse(mouse entering to the window)
+# #"<Leave>"-->>  mouse leaving the window
+# #"<Motion>"-->>  where the mouse moved - best for games
+
+# mouseEvents_window.bind("<Motion>", doSomething)
+
+# mouseEvents_window.mainloop()
+
+
+#----------------drag & drop widgets--------------------#
+# from tkinter import *
+
+# def drag_start(event):
+#   widget = event.widget #to make it work for every widget this function includes
+
+#   widget.startX = event.x 
+#   #dragdrop_label.startX-->> the place we clicked on the label itself
+
+#   widget.startY = event.y
+
+# def drag_motion(event):
+#   widget = event.widget
+#   x = widget.winfo_x() - widget.startX + event.x
+#    #dragdrop_label.winfo_x()-->>top left corner x place relative to the window
+
+#   y = widget.winfo_y() - widget.startY + event.y
+#   widget.place(x=x,y=y)
+
+# dragDrop_window = Tk()
+
+# dragdrop_label = Label(dragDrop_window,bg="red",width=10,height=5)
+# dragdrop_label.place(x=0,y=0)
+
+# dragdrop_label2 = Label(dragDrop_window,bg="blue",width=10,height=5)
+# dragdrop_label2.place(x=100,y=100)
+
+# #binding the label
+# dragdrop_label.bind("<Button-1>",drag_start)
+# dragdrop_label.bind("<B1-Motion>",drag_motion)
+
+# #binding the label 2
+# dragdrop_label2.bind("<Button-1>",drag_start)
+# dragdrop_label2.bind("<B1-Motion>",drag_motion)
+
+# dragDrop_window.mainloop()
+
+
+
+#-------moving an image on window an canvas------------#
+#-----------on window------------#
+# from tkinter import *
+
+# def move_up(event):
+#   myimage_label.place(x=myimage_label.winfo_x(),y=myimage_label.winfo_y()-10)
+
+# def move_down(event):
+#   myimage_label.place(x=myimage_label.winfo_x(),y=myimage_label.winfo_y()+10)
+
+# def move_left(event):
+#   myimage_label.place(x=myimage_label.winfo_x()-10,y=myimage_label.winfo_y())
+
+# def move_right(event):
+#   myimage_label.place(x=myimage_label.winfo_x()+10,y=myimage_label.winfo_y())
+
+# imagemove_window = Tk()
+
+# imagemove_window.geometry("500x500")
+
+# imagemove_window.bind("<w>",move_up)
+# imagemove_window.bind("<s>",move_down)
+# imagemove_window.bind("<a>",move_left)
+# imagemove_window.bind("<d>",move_right)
+
+# #for arrow keys
+# imagemove_window.bind("<Up>",move_up)
+# imagemove_window.bind("<Down>",move_down)
+# imagemove_window.bind("<Left>",move_left)
+# imagemove_window.bind("<Right>",move_right)
+
+# myimage = PhotoImage(file='images/racingcar.png')
+# myimage_label = Label(imagemove_window,image=myimage)
+# myimage_label.place(x=0,y=0)
+
+# imagemove_window.mainloop()
+
+#-----------on canvas------------#
+# from tkinter import *
+
+# def move_up_canvas(event):
+#    moveimage_canvas.move(myimage,0,-10)
+
+# def move_down_canvas(event):
+#    moveimage_canvas.move(myimage,0,10)
+
+# def move_left_canvas(event):
+#    moveimage_canvas.move(myimage,-10,0)
+
+# def move_right_canvas(event):
+#    moveimage_canvas.move(myimage,10,0)
+
+# moveimage_canvas_window = Tk()
+
+# moveimage_canvas_window.bind("<w>",move_up_canvas)
+# moveimage_canvas_window.bind("<s>",move_down_canvas)
+# moveimage_canvas_window.bind("<a>",move_left_canvas)
+# moveimage_canvas_window.bind("<d>",move_right_canvas)
+
+# #arrow keys
+# moveimage_canvas_window.bind("<Up>",move_up_canvas)
+# moveimage_canvas_window.bind("<Down>",move_down_canvas)
+# moveimage_canvas_window.bind("<Left>",move_left_canvas)
+# moveimage_canvas_window.bind("<Right>",move_right_canvas)
+
+# moveimage_canvas = Canvas(moveimage_canvas_window,width=500,height=500)
+# moveimage_canvas.pack()
+
+# photoimage = PhotoImage(file="images/racingcar.png")
+# myimage = moveimage_canvas.create_image(0,0,image=photoimage,anchor=NW)
+
+# moveimage_canvas_window.mainloop()
+
+
+#-----------------simple 2D animations------------------#
 from tkinter import *
-canvas_window = Tk()
+import time
 
-first_canvas = Canvas(canvas_window,height=500,width=500)
-# first_canvas.create_line(0,0,500,500,fill='blue',width=5) #(start x, start y, end x, end y)
-# first_canvas.create_line(0,500,500,0,fill='red',width=5) 
-# first_canvas.create_rectangle(50,50,250,250,fill='purple')
+#constant(names should be all upper case[not that necessary but a common thing])-->> variables that are not changing throughout the process
+WIDTH = 500
+HEIGHT = 500
+xVelocity = 3
+yVelocity = 2 #velocity = speed
 
-# points = [250,0,500,500,0,500]
-# first_canvas.create_polygon(points,fill='yellow',outline='black',width=5)
+animation_window = Tk()
 
-# first_canvas.create_arc(0,0,500,500,style=PIESLICE,start=270,extent=180) #arc is curved line between two points
+animation_canvas = Canvas(animation_window,width=WIDTH, height=HEIGHT)
+animation_canvas.pack()
 
-#--simple pokebole--#
-first_canvas.create_arc(0,0,500,500,fill='red',extent=180,width=10)
-first_canvas.create_arc(0,0,500,500,fill='white',start=180,extent=180,width=10)
-first_canvas.create_oval(190,190,310,310,fill='white',width=10)
+background_img = PhotoImage(file='images/earth.png')
+my_background_img = animation_canvas.create_image(0,0,image=background_img,anchor=NW)
 
-first_canvas.pack()
-canvas_window.mainloop()
+photo_img = PhotoImage(file='images/racingcar.png')
+my_img = animation_canvas.create_image(0,0,image=photo_img,anchor=NW)
+
+#getting height & the width of my_img
+img_width = photo_img.width()
+img_height = photo_img.height()
+
+while True:
+  coordinates = animation_canvas.coords(my_img)
+  print(coordinates)
+  if(coordinates[0] >= (WIDTH - img_width) or coordinates[0] < 0):
+    xVelocity = -xVelocity
+  if(coordinates[1] >= (HEIGHT - img_height) or coordinates[1] < 0):
+    yVelocity = -yVelocity
+
+  animation_canvas.move(my_img,xVelocity,yVelocity) #(image name, x speed, y speed)
+  animation_window.update()
+  time.sleep(0.01)
+
+
+
+animation_window.mainloop()
