@@ -2085,42 +2085,398 @@ import tkinter
 
 
 #-----------------simple 2D animations------------------#
+# from tkinter import *
+# import time
+
+# #constant(names should be all upper case[not that necessary but a common thing])-->> variables that are not changing throughout the process
+# WIDTH = 500
+# HEIGHT = 500
+# xVelocity = 3
+# yVelocity = 2 #velocity = speed
+
+# animation_window = Tk()
+
+# animation_canvas = Canvas(animation_window,width=WIDTH, height=HEIGHT)
+# animation_canvas.pack()
+
+# background_img = PhotoImage(file='images/earth.png')
+# my_background_img = animation_canvas.create_image(0,0,image=background_img,anchor=NW)
+
+# photo_img = PhotoImage(file='images/racingcar.png')
+# my_img = animation_canvas.create_image(0,0,image=photo_img,anchor=NW)
+
+# #getting height & the width of my_img
+# img_width = photo_img.width()
+# img_height = photo_img.height()
+
+# while True:
+#   coordinates = animation_canvas.coords(my_img)
+#   print(coordinates)
+#   if(coordinates[0] >= (WIDTH - img_width) or coordinates[0] < 0):
+#     xVelocity = -xVelocity
+#   if(coordinates[1] >= (HEIGHT - img_height) or coordinates[1] < 0):
+#     yVelocity = -yVelocity
+
+#   animation_canvas.move(my_img,xVelocity,yVelocity) #(image name, x speed, y speed)
+#   animation_window.update()
+#   time.sleep(0.01)
+
+# animation_window.mainloop()
+
+
+#--------------------animating multiple objects--------#
+# from tkinter import*
+# from Ball import *
+# import time
+
+# animate_multiple_window = Tk()
+
+# WIDTH = 500
+# HEIGHT = 500
+
+# animate_multiple_canvas = Canvas(animate_multiple_window,width=WIDTH, height=HEIGHT)
+# animate_multiple_canvas.pack()
+
+# volley_ball = Ball(animate_multiple_canvas,0,0,100,1,1,"white")
+# tennis_ball = Ball(animate_multiple_canvas,0,0,50,4,3,"yellow")
+# basket_ball = Ball(animate_multiple_canvas,0,0,125,8,7,"orange")
+
+# while True:
+#   volley_ball.move()
+#   tennis_ball.move()
+#   basket_ball.move()
+#   animate_multiple_window.update()
+#   time.sleep(0.01)
+
+# animate_multiple_window.mainloop()
+
+
+#------------------clock GUI program--------------------#
+# from tkinter import *
+# from time import *
+
+# def update():
+#   time_string = strftime("%I:%M:%S %p")
+#   time_label.config(text=time_string)
+
+#   day_string = strftime("%A")
+#   day_label.config(text=day_string)
+
+#   date_string = strftime("%B %d, %Y")
+#   date_label.config(text=date_string)
+
+#   clockprogram_window.after(1000,update) #1000->mili secs, 'update'->will do the update every 1000 mili-secs
+
+# clockprogram_window = Tk()
+
+# time_label = Label(clockprogram_window,font=("Arial",50),fg="#00FF00",bg="black")
+# time_label.pack()
+
+# day_label = Label(clockprogram_window,font=("Ink Free",25))
+# day_label.pack()
+
+# date_label = Label(clockprogram_window,font=("Ink Free",30))
+# date_label.pack()
+
+# update()
+
+# clockprogram_window.mainloop()
+
+
+#----------------------sending an email-----------------#
+# import smtplib #Simple Mail Transfer Protocol Library
+
+# sender = "naksathaudage2000@gmail.com"
+# receiver = "naduni.20191206@iit.ac.lk"
+# password = "fbi0778593462"
+# subject = "Python email text"
+# body = "I wrote an Email :D"
+
+# message = f"""From: Snoop Dogg{sender}
+# To: Nicholas Cage{receiver}
+# Subject: {subject}\n
+# {body}
+# """ #triple quotes-->> to get multiple lines of texts
+
+# server = smtplib.SMTP("smtp.gmail.com", 587) #587 pot number->default mail submission port
+# server.starttls() #start transport layer security
+
+# #download an app to make the gmail less secure or else won't work
+# try:
+#   server.login(sender,password)
+#   print("loged in...")
+#   server.sendmail(sender,receiver,message) #to send an email
+#   print("Email has been sent!")
+
+# except smtplib.SMTPAuthenticationError:
+#   print("unable to sign in")
+
+
+#-------runing a python file using command prompt-------#
+# #1. save file as .py(python file)
+# #2. go tocommand prompt
+# #3. navigate to directory w/ your file : cd C:\Program Files
+# #invoke python interpreter + script: python hello_world.py
+
+# print('hellow world')
+# name = input("What's your name?: ")
+# print("Hellow "+name)
+
+
+#-------------------'pip for python'-------------------#
+#pip = package manager for packages and modules from python package index
+#****************************************************
+#included for python versions 3.4+
+#open command prompt
+#
+#help: pip
+#check: pip --version
+#update: pip install --upgrade pip
+#installed packages: pip list
+#check outdated packages: pip list --outdated
+#install a package: pip install "package name"
+#*****************************************************
+
+
+#--------converting python file to an executable--------#
+# (windows defender may prevent you from running)
+# (make sure pip and pyinstaller are installed/updated)
+
+# cd to directory that contains your .py file
+# pyinstaller..
+#     -F (all in 1 file)
+#     -w (removes terminal window)
+#     -i icon.ico (adds custom icon to .exe)   ('icon.ico'-->>icon means name of the ico file)
+#     clock.py (name of your main python file)
+
+# .exe is located in the dist folder
+#i couldn't do upper progra cause of a 'pyinstaller' issue
+
+
+#-------------------basic calculator--------------------#
+# from tkinter import *
+
+# def button_press(num):
+#   global equation_text
+#   equation_text = equation_text + str(num)
+#   equation_label.set(equation_text)
+
+# def equals():
+#   global equation_text
+
+#   try:
+#     total = str(eval(equation_text)) #eval()-->>parse the expression we pass in
+#     equation_label.set(total)
+#     equation_text = total
+#   except SyntaxError:
+#     equation_label.set('arithmetic error')
+#     equation_text = ""
+#   except ZeroDivisionError:
+#     equation_label.set('arithmetic error')
+#     equation_text = ""
+
+# def clear():
+#   global equation_text
+#   equation_label.set("")
+#   equation_text =""
+
+# cal_window =Tk()
+# cal_window.title("Calculator program")
+# cal_window.geometry("500x500")
+
+# equation_text = ""
+# equation_label = StringVar()
+
+# label = Label(cal_window,textvariable=equation_label,font=('consolas',20),bg="white",width=24,height=2)
+# label.pack()
+
+# frame = Frame(cal_window)
+# frame.pack()
+
+# btn1 = Button(frame,text=1,height=4,width=9,font=35,command= lambda: button_press(1))
+# btn1.grid(row=0,column=0)
+
+# btn2 = Button(frame,text=2,height=4,width=9,font=35,command= lambda: button_press(2))
+# btn2.grid(row=0,column=1)
+
+# btn3 = Button(frame,text=3,height=4,width=9,font=35,command= lambda: button_press(3))
+# btn3.grid(row=0,column=2)
+
+# btn4 = Button(frame,text=4,height=4,width=9,font=35,command= lambda: button_press(4))
+# btn4.grid(row=1,column=0)
+
+# btn5 = Button(frame,text=5,height=4,width=9,font=35,command= lambda: button_press(5))
+# btn5.grid(row=1,column=1)
+
+# btn6 = Button(frame,text=6,height=4,width=9,font=35,command= lambda: button_press(6))
+# btn6.grid(row=1,column=2)
+
+# btn7 = Button(frame,text=7,height=4,width=9,font=35,command= lambda: button_press(7))
+# btn7.grid(row=2,column=0)
+
+# btn8 = Button(frame,text=8,height=4,width=9,font=35,command= lambda: button_press(8))
+# btn8.grid(row=2,column=1)
+
+# btn9 = Button(frame,text=9,height=4,width=9,font=35,command= lambda: button_press(9))
+# btn9.grid(row=2,column=2)
+
+# btn0 = Button(frame,text=0,height=4,width=9,font=35,command= lambda: button_press(0))
+# btn0.grid(row=3,column=0)
+
+# plus_btn= Button(frame, text='+',height=4,width=9,font=35,command= lambda: button_press('+'))
+# plus_btn.grid(row=0,column=3)
+
+# minus_btn= Button(frame,text='-',height=4,width=9,font=35,command= lambda: button_press('-'))
+# minus_btn.grid(row=1,column=3)
+
+# multiply_btn= Button(frame,text='X',height=4,width=9,font=35,command= lambda: button_press('*'))
+# multiply_btn.grid(row=2,column=3)
+
+# divide_btn= Button(frame,text='/',height=4,width=9,font=35,command= lambda: button_press('/'))
+# divide_btn.grid(row=3,column=3)
+
+# equal_btn= Button(frame,text="=",height=4,width=9,font=35,command= equals)
+# equal_btn.grid(row=3,column=2)
+
+# decimal_btn= Button(frame,text=".",height=4,width=9,font=35,command= lambda: button_press('.'))
+# decimal_btn.grid(row=3,column=1)
+
+# clear_btn= Button(cal_window,text="clear",height=4,width=12,font=35,command= clear)
+# clear_btn.pack()
+
+# cal_window.mainloop()
+
+
+
+#--------------basic text editor------------------------#
+import os
 from tkinter import *
-import time
+from tkinter import filedialog, colorchooser, font
+from tkinter.messagebox import *
+from tkinter.filedialog import *
 
-#constant(names should be all upper case[not that necessary but a common thing])-->> variables that are not changing throughout the process
-WIDTH = 500
-HEIGHT = 500
-xVelocity = 3
-yVelocity = 2 #velocity = speed
+def change_color():
+  color = colorchooser.askcolor(title="pick a color...or else")
+  text_area.config(fg=color[1])
 
-animation_window = Tk()
+def change_font(*args):
+  text_area.config(font=(font_name.get(),size_box.get()))
 
-animation_canvas = Canvas(animation_window,width=WIDTH, height=HEIGHT)
-animation_canvas.pack()
+def new_file():
+  texteditor_window.title("Untitled")
+  text_area.delete(1.0, END)
 
-background_img = PhotoImage(file='images/earth.png')
-my_background_img = animation_canvas.create_image(0,0,image=background_img,anchor=NW)
+def open_file():
+  file = askopenfilename(defaultextension=".txt",file=[("All Files","*.*"),("Text Documents","*.txt")])
 
-photo_img = PhotoImage(file='images/racingcar.png')
-my_img = animation_canvas.create_image(0,0,image=photo_img,anchor=NW)
+  try:
+    texteditor_window.title(os.path.basename(file)) #title change according to the file's title we opened
+    text_area.delete(1.0,END)
 
-#getting height & the width of my_img
-img_width = photo_img.width()
-img_height = photo_img.height()
+    file = open(file,"r")
+    text_area.insert(1.0,file.read())
+  except Exception:
+    print("Couldn't read file")
+  finally:
+    file.close()
 
-while True:
-  coordinates = animation_canvas.coords(my_img)
-  print(coordinates)
-  if(coordinates[0] >= (WIDTH - img_width) or coordinates[0] < 0):
-    xVelocity = -xVelocity
-  if(coordinates[1] >= (HEIGHT - img_height) or coordinates[1] < 0):
-    yVelocity = -yVelocity
+def save_file():
+  file = filedialog.asksaveasfilename(initialfile='untitled.txt',defaultextension=".txt",filetypes=[("All files","*.*"),("Text documents","*.txt")])
 
-  animation_canvas.move(my_img,xVelocity,yVelocity) #(image name, x speed, y speed)
-  animation_window.update()
-  time.sleep(0.01)
+  if file is None:
+    return
+  else:
+    try:
+      texteditor_window.title(os.path.basename(file))
+      file = open(file,"w")
+      file.write(text_area.get(1.0,END))
+    except Exception:
+      print("couldn't save file")
+    finally:
+      file.close()
+  
+
+def cut():
+  text_area.event_generate("<<Cut>>")
+
+def copy():
+  text_area.event_generate("<<Copy>>")
+
+def paste():
+  text_area.event_generate("<<Paste>>")
+
+def about():
+  showinfo("About this program","This is a program written by YOUUUUUU !!!!") #(title,text)
+
+def quit():
+  texteditor_window.destroy()
+
+texteditor_window = Tk()
+
+texteditor_window.title("Text editor program")
+file = None
+
+window_width = 500
+window_height = 500
+screen_width = texteditor_window.winfo_screenwidth()
+screen_height = texteditor_window.winfo_screenheight()
+
+x = int((screen_width/2) - (window_width/2))
+y = int((screen_height/2) - (window_height/2))
+
+#making it more center
+texteditor_window.geometry("{}x{}+{}+{}".format(window_width,window_height,x,y))
+
+font_name = StringVar(texteditor_window)
+font_name.set("Arial")
+
+font_size = StringVar(texteditor_window)
+font_size.set("25")
+
+text_area = Text(texteditor_window,font=(font_name.get(),font_size.get()))
+
+scroll_bar = Scrollbar(text_area)
+#allow the text area to expand
+texteditor_window.grid_rowconfigure(0, weight=1)
+texteditor_window.grid_columnconfigure(0, weight=1)
+text_area.grid(sticky=N + E + S + W) #to expand throught all areas
+scroll_bar.pack(side=RIGHT, fill=Y)
+text_area.config(yscrollcommand=scroll_bar.set)
+
+frame = Frame(texteditor_window)
+frame.grid()
+
+color_btn = Button(frame,text = "color", command = change_color)
+color_btn.grid(row=0,column=0)
+
+font_box = OptionMenu(frame,font_name, *font.families(), command = change_font) #return all the different fonts available to us
+font_box.grid(row=0,column=1)
+
+size_box = Spinbox(frame, from_ = 1, to=100, textvariable=font_size,command=change_font)
+size_box.grid(row=0, column=2)
+
+#dropdown
+menu_bar = Menu(texteditor_window)
+texteditor_window.config(menu=menu_bar)
+
+file_menu = Menu(menu_bar, tearoff =0)
+menu_bar.add_cascade(label = "file", menu = file_menu)
+file_menu.add_command(label = "New", command=new_file)
+file_menu.add_command(label = "Open", command=open_file)
+file_menu.add_command(label = "Save", command=save_file)
+file_menu.add_separator()
+file_menu.add_command(label = "Quit", command=quit)
 
 
+edit_menu = Menu(menu_bar, tearoff =0)
+menu_bar.add_cascade(label = "Edit", menu = edit_menu)
+edit_menu.add_command(label = "Cut", command=cut)
+edit_menu.add_command(label = "Copy", command=copy)
+edit_menu.add_command(label = "Paste", command=paste)
 
-animation_window.mainloop()
+help_menu = Menu(menu_bar, tearoff =0)
+menu_bar.add_cascade(label = "Help", menu = help_menu)
+help_menu.add_command(label = "About", command=about)
+
+
+texteditor_window.mainloop()
