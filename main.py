@@ -2349,134 +2349,247 @@ import tkinter
 
 
 #--------------basic text editor------------------------#
-import os
-from tkinter import *
-from tkinter import filedialog, colorchooser, font
-from tkinter.messagebox import *
-from tkinter.filedialog import *
+# import os
+# from tkinter import *
+# from tkinter import filedialog, colorchooser, font
+# from tkinter.messagebox import *
+# from tkinter.filedialog import *
 
-def change_color():
-  color = colorchooser.askcolor(title="pick a color...or else")
-  text_area.config(fg=color[1])
+# def change_color():
+#   color = colorchooser.askcolor(title="pick a color...or else")
+#   text_area.config(fg=color[1])
 
-def change_font(*args):
-  text_area.config(font=(font_name.get(),size_box.get()))
+# def change_font(*args):
+#   text_area.config(font=(font_name.get(),size_box.get()))
 
-def new_file():
-  texteditor_window.title("Untitled")
-  text_area.delete(1.0, END)
+# def new_file():
+#   texteditor_window.title("Untitled")
+#   text_area.delete(1.0, END)
 
-def open_file():
-  file = askopenfilename(defaultextension=".txt",file=[("All Files","*.*"),("Text Documents","*.txt")])
+# def open_file():
+#   file = askopenfilename(defaultextension=".txt",file=[("All Files","*.*"),("Text Documents","*.txt")])
 
-  try:
-    texteditor_window.title(os.path.basename(file)) #title change according to the file's title we opened
-    text_area.delete(1.0,END)
+#   try:
+#     texteditor_window.title(os.path.basename(file)) #title change according to the file's title we opened
+#     text_area.delete(1.0,END)
 
-    file = open(file,"r")
-    text_area.insert(1.0,file.read())
-  except Exception:
-    print("Couldn't read file")
-  finally:
-    file.close()
+#     file = open(file,"r")
+#     text_area.insert(1.0,file.read())
+#   except Exception:
+#     print("Couldn't read file")
+#   finally:
+#     file.close()
 
-def save_file():
-  file = filedialog.asksaveasfilename(initialfile='untitled.txt',defaultextension=".txt",filetypes=[("All files","*.*"),("Text documents","*.txt")])
+# def save_file():
+#   file = filedialog.asksaveasfilename(initialfile='untitled.txt',defaultextension=".txt",filetypes=[("All files","*.*"),("Text documents","*.txt")])
 
-  if file is None:
-    return
-  else:
-    try:
-      texteditor_window.title(os.path.basename(file))
-      file = open(file,"w")
-      file.write(text_area.get(1.0,END))
-    except Exception:
-      print("couldn't save file")
-    finally:
-      file.close()
+#   if file is None:
+#     return
+#   else:
+#     try:
+#       texteditor_window.title(os.path.basename(file))
+#       file = open(file,"w")
+#       file.write(text_area.get(1.0,END))
+#     except Exception:
+#       print("couldn't save file")
+#     finally:
+#       file.close()
   
 
-def cut():
-  text_area.event_generate("<<Cut>>")
+# def cut():
+#   text_area.event_generate("<<Cut>>")
 
-def copy():
-  text_area.event_generate("<<Copy>>")
+# def copy():
+#   text_area.event_generate("<<Copy>>")
 
-def paste():
-  text_area.event_generate("<<Paste>>")
+# def paste():
+#   text_area.event_generate("<<Paste>>")
 
-def about():
-  showinfo("About this program","This is a program written by YOUUUUUU !!!!") #(title,text)
+# def about():
+#   showinfo("About this program","This is a program written by YOUUUUUU !!!!") #(title,text)
 
-def quit():
-  texteditor_window.destroy()
+# def quit():
+#   texteditor_window.destroy()
 
-texteditor_window = Tk()
+# texteditor_window = Tk()
 
-texteditor_window.title("Text editor program")
-file = None
+# texteditor_window.title("Text editor program")
+# file = None
 
-window_width = 500
-window_height = 500
-screen_width = texteditor_window.winfo_screenwidth()
-screen_height = texteditor_window.winfo_screenheight()
+# window_width = 500
+# window_height = 500
+# screen_width = texteditor_window.winfo_screenwidth()
+# screen_height = texteditor_window.winfo_screenheight()
 
-x = int((screen_width/2) - (window_width/2))
-y = int((screen_height/2) - (window_height/2))
+# x = int((screen_width/2) - (window_width/2))
+# y = int((screen_height/2) - (window_height/2))
 
-#making it more center
-texteditor_window.geometry("{}x{}+{}+{}".format(window_width,window_height,x,y))
+# #making it more center
+# texteditor_window.geometry("{}x{}+{}+{}".format(window_width,window_height,x,y))
 
-font_name = StringVar(texteditor_window)
-font_name.set("Arial")
+# font_name = StringVar(texteditor_window)
+# font_name.set("Arial")
 
-font_size = StringVar(texteditor_window)
-font_size.set("25")
+# font_size = StringVar(texteditor_window)
+# font_size.set("25")
 
-text_area = Text(texteditor_window,font=(font_name.get(),font_size.get()))
+# text_area = Text(texteditor_window,font=(font_name.get(),font_size.get()))
 
-scroll_bar = Scrollbar(text_area)
-#allow the text area to expand
-texteditor_window.grid_rowconfigure(0, weight=1)
-texteditor_window.grid_columnconfigure(0, weight=1)
-text_area.grid(sticky=N + E + S + W) #to expand throught all areas
-scroll_bar.pack(side=RIGHT, fill=Y)
-text_area.config(yscrollcommand=scroll_bar.set)
+# scroll_bar = Scrollbar(text_area)
+# #allow the text area to expand
+# texteditor_window.grid_rowconfigure(0, weight=1)
+# texteditor_window.grid_columnconfigure(0, weight=1)
+# text_area.grid(sticky=N + E + S + W) #to expand throught all areas
+# scroll_bar.pack(side=RIGHT, fill=Y)
+# text_area.config(yscrollcommand=scroll_bar.set)
 
-frame = Frame(texteditor_window)
-frame.grid()
+# frame = Frame(texteditor_window)
+# frame.grid()
 
-color_btn = Button(frame,text = "color", command = change_color)
-color_btn.grid(row=0,column=0)
+# color_btn = Button(frame,text = "color", command = change_color)
+# color_btn.grid(row=0,column=0)
 
-font_box = OptionMenu(frame,font_name, *font.families(), command = change_font) #return all the different fonts available to us
-font_box.grid(row=0,column=1)
+# font_box = OptionMenu(frame,font_name, *font.families(), command = change_font) #return all the different fonts available to us
+# font_box.grid(row=0,column=1)
 
-size_box = Spinbox(frame, from_ = 1, to=100, textvariable=font_size,command=change_font)
-size_box.grid(row=0, column=2)
+# size_box = Spinbox(frame, from_ = 1, to=100, textvariable=font_size,command=change_font)
+# size_box.grid(row=0, column=2)
 
-#dropdown
-menu_bar = Menu(texteditor_window)
-texteditor_window.config(menu=menu_bar)
+# #dropdown
+# menu_bar = Menu(texteditor_window)
+# texteditor_window.config(menu=menu_bar)
 
-file_menu = Menu(menu_bar, tearoff =0)
-menu_bar.add_cascade(label = "file", menu = file_menu)
-file_menu.add_command(label = "New", command=new_file)
-file_menu.add_command(label = "Open", command=open_file)
-file_menu.add_command(label = "Save", command=save_file)
-file_menu.add_separator()
-file_menu.add_command(label = "Quit", command=quit)
-
-
-edit_menu = Menu(menu_bar, tearoff =0)
-menu_bar.add_cascade(label = "Edit", menu = edit_menu)
-edit_menu.add_command(label = "Cut", command=cut)
-edit_menu.add_command(label = "Copy", command=copy)
-edit_menu.add_command(label = "Paste", command=paste)
-
-help_menu = Menu(menu_bar, tearoff =0)
-menu_bar.add_cascade(label = "Help", menu = help_menu)
-help_menu.add_command(label = "About", command=about)
+# file_menu = Menu(menu_bar, tearoff =0)
+# menu_bar.add_cascade(label = "file", menu = file_menu)
+# file_menu.add_command(label = "New", command=new_file)
+# file_menu.add_command(label = "Open", command=open_file)
+# file_menu.add_command(label = "Save", command=save_file)
+# file_menu.add_separator()
+# file_menu.add_command(label = "Quit", command=quit)
 
 
-texteditor_window.mainloop()
+# edit_menu = Menu(menu_bar, tearoff =0)
+# menu_bar.add_cascade(label = "Edit", menu = edit_menu)
+# edit_menu.add_command(label = "Cut", command=cut)
+# edit_menu.add_command(label = "Copy", command=copy)
+# edit_menu.add_command(label = "Paste", command=paste)
+
+# help_menu = Menu(menu_bar, tearoff =0)
+# menu_bar.add_cascade(label = "Help", menu = help_menu)
+# help_menu.add_command(label = "About", command=about)
+
+
+# texteditor_window.mainloop()
+
+
+
+#--------------------tic-tac-toe game-------------------#
+# from tkinter import *
+# import random
+
+# def next_turn(row,column):
+#   global player #to get access to the player
+#   if buttons[row][column]['text'] == "" and check_winner() is False:
+#     if player == players[0]:
+#       buttons[row][column]['text'] = player
+#       if check_winner() is False:
+#         player = players[1]
+#         label.config(text=(players[1] + " turn"))
+#       elif check_winner() is True:
+#         label.config(text=(players[0]+ " wins"))
+#       elif check_winner() == "Tie":
+#         label.config(text=("Tie!"))
+
+#     else:
+#       buttons[row][column]['text'] = player
+#       if check_winner() is False:
+#         player = players[0]
+#         label.config(text=(players[0] + " turn"))
+#       elif check_winner() is True:
+#         label.config(text=(players[1]+ " wins"))
+#       elif check_winner() == "Tie":
+#         label.config(text=("Tie!"))
+
+
+# def check_winner():
+#   for row in range(3):
+#     if buttons[row][0]['text'] == buttons[row][1]['text'] ==buttons[row][2]['text'] != "":
+#       buttons[row][0].config(bg="green")
+#       buttons[row][1].config(bg="green")
+#       buttons[row][2].config(bg="green")
+
+#       return True
+#   for column in range(3):
+#     if buttons[0][column]['text'] == buttons[1][column]['text'] ==buttons[2][column]['text'] != "":
+#       buttons[0][column].config(bg="green")
+#       buttons[1][column].config(bg="green")
+#       buttons[2][column].config(bg="green")
+#       return True
+  
+#   if buttons[0][0]['text'] == buttons[1][1]['text'] == buttons[2][2]['text'] != "":
+#     buttons[0][0].config(bg="green")
+#     buttons[1][1].config(bg="green")
+#     buttons[2][2].config(bg="green")
+#     return True
+  
+#   elif buttons[0][2]['text'] == buttons[1][1]['text'] == buttons[2][0]['text'] != "":
+#     buttons[0][2].config(bg="green")
+#     buttons[1][1].config(bg="green")
+#     buttons[2][0].config(bg="green")
+#     return True
+  
+#   elif empty_spaces() is False:
+#     for row in range(3):
+#       for column in range(3):
+#         buttons[row][column].config(bg="yellow")
+#     return "Tie"
+  
+#   else:
+#     return False
+  
+
+# def empty_spaces():
+#   spaces = 9
+#   for row in range(3):
+#     for column in range(3):
+#       if buttons[row][column]['text'] != "":
+#         spaces -= 1
+#   if spaces ==0:
+#     return False
+#   else:
+#     True
+
+# def new_game():
+#   global player
+#   player = random.choice(players)
+#   label.config(text=player + " turn")
+
+#   for row in range(3):
+#     for column in range(3):
+#       buttons[row][column].config(text="",bg="#F0F0F0")
+
+
+# tictac_window = Tk()
+
+# tictac_window.title("Tic-Taca-Toe")
+# players = ["x","o"]
+# player = random.choice(players)
+# buttons = [[0,0,0], #[[firstrow],[secondrow],[thirdrow]]
+#            [0,0,0],
+#            [0,0,0]]
+
+# label = Label(text = player + " turn",font=('consolas',40))
+# label.pack(side ="top")
+
+# reset_btn = Button(text="restart",font=('consolas',20),command=new_game)
+# reset_btn.pack(side="top")
+
+# frame = Frame(tictac_window)
+# frame.pack()
+
+# for row in range(3):
+#   for column in range(3):
+#     buttons[row][column] = Button(frame, text="",font=('consolas',40),width=5,height=2,command= lambda row=row,column= column:next_turn(row,column))
+#     buttons[row][column].grid(row=row,column=column)
+
+# tictac_window.mainloop()
